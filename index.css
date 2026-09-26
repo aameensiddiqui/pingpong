@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: #181818;
+    font-family: Arial, sans-serif;
+}
+
+.game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+    background-color: #181818;
+}
+
+.score-card {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 40px;
+    color: #ffffff;
+    font-size: 1.2rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+.score-card h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}

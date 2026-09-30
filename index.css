@@ -64,3 +64,39 @@ canvas {
 .controls button:hover {
     background-color: #444;
 }
+
+.game-over {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    z-index: 20;
+}
+
+.game-over h2 {
+    font-size: 56px;
+}
+
+.game-over button {
+    padding: 12px 28px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.game-over button:hover {
+    background-color: #444;
+}
+
+.hidden {
+    display: none;
+}

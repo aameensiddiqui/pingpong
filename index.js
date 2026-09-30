@@ -36,7 +36,10 @@ let dy = -speed;
 let p1Score = 0;
 let p2Score = 0;
 
-const hitSound = new Audio("/audio/mahesh.mp3");
+const winningScore = 5;
+let gameOver = false;
+
+const hitSound = new Audio("/audio/gareeb.mp3");
 hitSound.volume = 1.0;
 const scoreSound = new Audio("/audio/insulted_me.mp3");
 scoreSound.volume = 0.6;
@@ -82,19 +85,29 @@ function drawBall() {
     ctx.restore();
 }
 
-function drawRectangle(rx, ry) {
+function drawRectangle(rx, ry, topLabel, bottomLabel) {
     ctx.beginPath();
     ctx.rect(rx, ry, rectw, recth);
     ctx.fillStyle = "white";
     ctx.fill();
+
+    ctx.fillStyle = "#181818";
+    ctx.font = "bold 18px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(topLabel, rx + rectw / 2, ry + 25);
+    ctx.fillText(bottomLabel, rx + rectw / 2, ry + recth - 25);
 }
 
 // main fun. for rendering 1 ball and 2 bats
 function draw() {
     ctx.clearRect(0, 0, can.width, can.height);
     drawBall();
-    drawRectangle(xPosBat1, yPosBat1);
-    drawRectangle(xPosBat2, yPosBat2);
+    drawRectangle(xPosBat1, yPosBat1, "W", "S");
+    drawRectangle(xPosBat2, yPosBat2, "▲", "▼");
+
+    if (gameOver) return;
+
     updateBall();
     moveBat1();
     moveBat2();
@@ -137,6 +150,8 @@ function updateBall() {
         y = can.height / 2;
         dx = -dx;
     }
+
+    checkWinner();
 
     x += dx;
     y += dy;
@@ -230,4 +245,45 @@ function startGame() {
     setInterval(draw, 10);
 }
 
+// for checking winner
+function checkWinner() {
+    // debugger;
+    if (p1Score >= winningScore) endGame("Player 1");
+    else if (p2Score >= winningScore) endGame("Player 2");
+}
+
+function endGame(winner) {
+    gameOver = true;
+
+    bat1UpKeyPressed = bat1DownKeyPressed = false;
+    bat2UpKeyPressed = bat2DownKeyPressed = false;
+
+    document.getElementById("winnerText").innerText = winner + " wins!";
+    document.getElementById("gameOver").classList.remove("hidden");
+}
+
+function restartGame() {
+    p1Score = 0;
+    p2Score = 0;
+    document.getElementById("player1").innerText = 0;
+    document.getElementById("player2").innerText = 0;
+
+    x = can.width / 2;
+    y = can.height / 2;
+    dx = speed * (Math.random() < 0.5 ? -1 : 1);
+    dy = speed * (Math.random() < 0.5 ? -1 : 1);
+
+    yPosBat1 = can.height / 2 - recth / 2;
+    yPosBat2 = can.height / 2 - recth / 2;
+
+    gameOver = false;
+    document.getElementById("gameOver").classList.add("hidden");
+}
+
+document.getElementById("restartBtn").addEventListener("click", (e) => {
+    restartGame();
+    e.target.blur();
+});
+
+// start
 startGame();

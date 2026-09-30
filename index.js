@@ -39,9 +39,9 @@ let p2Score = 0;
 const winningScore = 5;
 let gameOver = false;
 
-const hitSound = new Audio("/audio/gareeb.mp3");
+const hitSound = new Audio("/audio/insulted_me.mp3");
 hitSound.volume = 1.0;
-const scoreSound = new Audio("/audio/insulted_me.mp3");
+const scoreSound = new Audio("/audio/gareeb.mp3");
 scoreSound.volume = 0.6;
 
 function playHitSound() {
